@@ -38,6 +38,4 @@ which roles contain patterns that align with current AI capabilities.
 This project assesses **relative automation exposure** based on textual patterns
 and does not predict job elimination or future labor market outcomes.
 
-## Author
-Dipanshu Singh
 
