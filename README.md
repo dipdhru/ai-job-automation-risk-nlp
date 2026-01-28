@@ -1,5 +1,7 @@
 # AI Automation Risk Analysis of Job Roles using NLP
 
+**https://ai-job-automation-risk-nlp.streamlit.app**
+
 ## Overview
 This project uses Natural Language Processing (NLP) to analyze job descriptions
 and assess the relative exposure of different job roles to AI-driven automation.
