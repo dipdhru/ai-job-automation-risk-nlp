@@ -67,9 +67,17 @@ if st.button("Analyze Job"):
 
         col1, col2, col3 = st.columns(3)
 
-        col1.metric("Sector", result["Sector"])
-        col2.metric("AI Proneness (0–1)", result["AI_Proneness"])
-        col3.metric("Human Resistance Score", result["Resistance_Factors"])
+        with col1:
+            st.markdown("**Sector**")
+            st.write(result["Sector"])
+
+        with col2:
+            st.markdown("**AI Proneness (0–1)**")
+            st.write(result["AI_Proneness"])
+
+        with col3:
+            st.markdown("**Human Resistance Score**")
+            st.write(result["Resistance_Factors"])
 
         # Optional interpretation
         if result["AI_Proneness"] > 0.66:
