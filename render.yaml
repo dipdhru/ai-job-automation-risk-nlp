@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: ai-job-analyzer
+    runtime: python-3.13
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn main:app --host 0.0.0.0 --port 8000
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: APP_NAME
+        value: "AI Job Risk Analyzer"
+      - key: ALGORITHM
+        value: "HS256"
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: SECRET_KEY
+        fromEnv: SECRET_KEY
+      - key: CORS_ORIGINS
+        value: '["https://ai-job-analyzer.onrender.com"]'
+      - key: DATABASE_URL
+        value: "sqlite:///./test.db"
