@@ -1,7 +1,7 @@
 import os
-import pandas as pd
 import pickle
 import json
+import csv
 from sentence_transformers import SentenceTransformer
 from ai_resistance import (
     low_ai_resistance,
@@ -15,7 +15,14 @@ ARTIFACTS_DIR = os.path.join(BASE_DIR, "artifacts")
 
 # load frozen artifacts
 kmeans = pickle.load(open(os.path.join(ARTIFACTS_DIR, "kmeans.pkl"), "rb"))
-cluster_scores = pd.read_csv(os.path.join(ARTIFACTS_DIR, "cluster_scores.csv"))
+
+# Load cluster scores using csv module (no pandas needed)
+cluster_scores_dict = {}
+with open(os.path.join(ARTIFACTS_DIR, "cluster_scores.csv"), 'r') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        cluster_scores_dict[row['cluster_label']] = float(row['AI_Proneness_Normalized'])
+
 cluster_names = json.load(open(os.path.join(ARTIFACTS_DIR, "cluster_names.json")))
 
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
@@ -63,9 +70,8 @@ def analyze_single_job(title, description, skills, knowledge, abilities):
     cluster = kmeans.predict(embedding)[0]
     sector = cluster_names[str(cluster)]
 
-    base_score = cluster_scores[
-        cluster_scores["cluster_label"] == sector
-    ]["AI_Proneness_Normalized"].values[0]
+    # Get base score from cluster_scores dict
+    base_score = cluster_scores_dict.get(sector, 0.5)  # Default to 0.5 if not found
 
     resistance_bonus = score_user_inputs(skills, knowledge, abilities)
     final_score = max(0, round(base_score - 0.05 * resistance_bonus, 2))
