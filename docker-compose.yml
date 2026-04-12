@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: ai_analyzer_db
+    environment:
+      POSTGRES_USER: ai_analyzer
+      POSTGRES_PASSWORD: analyzer_password_dev
+      POSTGRES_DB: ai_risk_analyzer
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ai_analyzer"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai_analyzer_network
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ai_analyzer_api
+    environment:
+      DATABASE_URL: postgresql://ai_analyzer:analyzer_password_dev@postgres:5432/ai_risk_analyzer
+      SECRET_KEY: dev-secret-key-change-in-production
+      DEBUG: "False"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    networks:
+      - ai_analyzer_network
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Streamlit Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: ai_analyzer_ui
+    environment:
+      API_URL: http://backend:8000
+      STREAMLIT_SERVER_PORT: 8501
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    volumes:
+      - ./app:/app
+    networks:
+      - ai_analyzer_network
+
+networks:
+  ai_analyzer_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
