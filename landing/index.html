@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Job Risk Analyzer - Know Your Automation Risk</title>
+    <meta name="description" content="Understand how AI and automation will impact your job. Get actionable insights in seconds.">
+    <meta name="keywords" content="AI, automation, job risk, career, skills">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Problem Section */
+        .section {
+            padding: 4rem 2rem;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: #666;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: #f8f9fa;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .solution-img {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 3rem;
+            color: white;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .solution-img h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-features {
+            list-style: none;
+        }
+
+        .solution-features li {
+            padding: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .solution-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* How It Works */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        /* Signup Section */
+        .signup-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .signup-form {
+            max-width: 500px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .signup-form input {
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .signup-form input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+        }
+
+        .signup-form button {
+            background: white;
+            color: #667eea;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .signup-form button:hover {
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            display: none;
+            background: #4caf50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">🤖 AI Job Risk Analyzer</div>
+            <ul>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#signup">Join Waitlist</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Will Your Job Be Automated?</h1>
+            <p>Find out how AI and automation will impact your career. Get personalized insights and actionable skills to stay competitive.</p>
+            <button class="cta-button" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})">Try Free Analysis</button>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section" id="problem">
+        <div class="container">
+            <h2>The Challenge</h2>
+            <div class="problem-grid">
+                <div class="stat-card">
+                    <div class="number">2B+</div>
+                    <p>People entering job market by 2030</p>
+                </div>
+                <div class="stat-card">
+                    <div class="number">65%</div>
+                    <p>Of workers worry about AI replacing their job</p>
+                </div>
+                <div class="stat-card">
+                    <div class="number">30%</div>
+                    <p>Of job tasks likely to be automated</p>
+                </div>
+            </div>
+            <p style="text-align: center; color: #666; font-size: 1.1rem;">But there's no easy way to understand <strong>your personal risk</strong>.</p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section solution" id="solution">
+        <div class="container">
+            <h2>Our Solution</h2>
+            <div class="solution-grid">
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">How It Works</h3>
+                    <ol class="solution-features" style="text-align: left;">
+                        <li><strong>Enter your job details</strong> - Title, description, and skills</li>
+                        <li><strong>Our AI analyzes</strong> - Uses machine learning and NLP</li>
+                        <li><strong>Get risk score</strong> - From low to high automation risk</li>
+                        <li><strong>Receive recommendations</strong> - Which skills to develop</li>
+                    </ol>
+                </div>
+                <div class="solution-img">
+                    <h3>📊 Instant Results</h3>
+                    <p style="font-size: 3rem; margin: 1rem 0;">65%</p>
+                    <p>Automation Risk Score</p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.9;">+ Personalized skill recommendations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Steps -->
+    <section class="section">
+        <div class="container">
+            <h2>4 Steps to Your Personalized Report</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Share Job Details</h3>
+                    <p>Tell us about your current role</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Select Skills</h3>
+                    <p>Choose from 500+ skill options</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Analysis</h3>
+                    <p>Instant AI automation risk assessment</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Learn & Grow</h3>
+                    <p>See which skills protect your career</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section solution">
+        <div class="container">
+            <h2>Simple Pricing</h2>
+            <div class="problem-grid">
+                <div class="stat-card">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Free</h3>
+                    <p style="font-size: 1.5rem; color: #667eea; margin-bottom: 1rem;"><strong>$0</strong></p>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ 5 analyses/month</li>
+                        <li>✓ Basic risk score</li>
+                        <li>✓ Skill recommendations</li>
+                    </ul>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <h3 style="margin-bottom: 1rem;">Pro</h3>
+                    <p style="font-size: 1.5rem; margin-bottom: 1rem;"><strong>$19/mo</strong></p>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ Unlimited analyses</li>
+                        <li>✓ Detailed PDF reports</li>
+                        <li>✓ Career pivot suggestions</li>
+                        <li>✓ Priority support</li>
+                    </ul>
+                </div>
+                <div class="stat-card">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Enterprise</h3>
+                    <p style="font-size: 1.5rem; color: #667eea; margin-bottom: 1rem;"><strong>Custom</strong></p>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ API access</li>
+                        <li>✓ Bulk analysis</li>
+                        <li>✓ White-label</li>
+                        <li>✓ Dedicated account</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="signup-section" id="signup">
+        <div class="container">
+            <h2>Get Early Access</h2>
+            <p>Join 1,500+ people who want to understand their AI automation risk</p>
+            <form class="signup-form" id="signupForm">
+                <input type="text" id="fullName" placeholder="Your Full Name" required>
+                <input type="email" id="email" placeholder="your@email.com" required>
+                <input type="text" id="jobTitle" placeholder="Current Job Title" required>
+                <button type="submit" id="submitBtn">
+                    <span id="btnText">Join the Waitlist</span>
+                </button>
+                <div class="success-message" id="successMessage">
+                    ✓ Thanks for signing up! Check your email for exclusive updates.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="mailto:hello@aijobanalyzer.com">Contact Us</a>
+        </div>
+        <p>&copy; 2024 AI Job Risk Analyzer. Made with ❤️ to help careers evolve.</p>
+    </footer>
+
+    <script>
+        // Waitlist form handling
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = '✓ Adding to waitlist...';
+
+            try {
+                // Send to Webhook.site for testing (replace with your backend later)
+                // Or send to your backend API
+
+                // For now, just simulate success
+                setTimeout(() => {
+                    // Clear form
+                    document.getElementById('signupForm').reset();
+
+                    // Show success message
+                    document.getElementById('successMessage').style.display = 'block';
+
+                    // Reset button
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Join the Waitlist';
+
+                    // Hide success after 5 seconds
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 5000);
+                }, 1000);
+
+                // TODO: Replace with real backend call:
+                // const response = await fetch('YOUR_BACKEND_URL/api/v1/waitlist', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ fullName, email, jobTitle })
+                // });
+
+            } catch (error) {
+                alert('Error: ' + error.message);
+                submitBtn.disabled = false;
+                btnText.textContent = 'Join the Waitlist';
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
