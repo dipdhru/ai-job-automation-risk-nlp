@@ -1,11 +1,15 @@
 """FastAPI application entry point."""
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZIPMiddleware
+from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 from config.settings import get_settings
 from database import Base, engine
 from api.routes import auth, jobs, health
+
+LANDING_DIR = Path(__file__).parent.parent / "landing"
 
 # Initialize database
 Base.metadata.create_all(bind=engine)
@@ -44,6 +48,15 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(jobs.router)
+
+# Serve landing pages
+@app.get("/", include_in_schema=False)
+async def serve_index():
+    return FileResponse(LANDING_DIR / "index.html")
+
+@app.get("/signup", include_in_schema=False)
+async def serve_signup():
+    return FileResponse(LANDING_DIR / "signup.html")
 
 
 # Error handlers

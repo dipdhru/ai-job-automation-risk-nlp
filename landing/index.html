@@ -341,7 +341,7 @@
             <ul>
                 <li><a href="#problem">Problem</a></li>
                 <li><a href="#solution">Solution</a></li>
-                <li><a href="#signup">Join Waitlist</a></li>
+                <li><a href="/signup" style="background: white; color: #667eea; padding: 0.4rem 1.1rem; border-radius: 20px; font-weight: 600;">Sign Up Free</a></li>
             </ul>
         </nav>
     </header>
@@ -351,7 +351,7 @@
         <div class="container">
             <h1>Will Your Job Be Automated?</h1>
             <p>Find out how AI and automation will impact your career. Get personalized insights and actionable skills to stay competitive.</p>
-            <button class="cta-button" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})">Try Free Analysis</button>
+            <a href="/signup" class="cta-button">Try Free Analysis</a>
         </div>
     </section>
 
@@ -473,17 +473,14 @@
         <div class="container">
             <h2>Get Early Access</h2>
             <p>Join 1,500+ people who want to understand their AI automation risk</p>
-            <form class="signup-form" id="signupForm">
-                <input type="text" id="fullName" placeholder="Your Full Name" required>
-                <input type="email" id="email" placeholder="your@email.com" required>
-                <input type="text" id="jobTitle" placeholder="Current Job Title" required>
-                <button type="submit" id="submitBtn">
-                    <span id="btnText">Join the Waitlist</span>
+            <form class="signup-form" id="earlyAccessForm">
+                <input type="text" id="earlyName" placeholder="Your Full Name" required>
+                <input type="email" id="earlyEmail" placeholder="your@email.com" required>
+                <button type="submit" id="earlySubmitBtn">
+                    <span id="earlyBtnText">Create Free Account →</span>
                 </button>
-                <div class="success-message" id="successMessage">
-                    ✓ Thanks for signing up! Check your email for exclusive updates.
-                </div>
             </form>
+            <p style="opacity: 0.8; font-size: 0.85rem; margin-top: 0.75rem;">No credit card required. 5 free analyses included.</p>
         </div>
     </section>
 
@@ -498,55 +495,12 @@
     </footer>
 
     <script>
-        // Waitlist form handling
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        // Early access form: carry name+email to signup page
+        document.getElementById('earlyAccessForm').addEventListener('submit', (e) => {
             e.preventDefault();
-
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const jobTitle = document.getElementById('jobTitle').value;
-
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-
-            // Show loading state
-            submitBtn.disabled = true;
-            btnText.textContent = '✓ Adding to waitlist...';
-
-            try {
-                // Send to Webhook.site for testing (replace with your backend later)
-                // Or send to your backend API
-
-                // For now, just simulate success
-                setTimeout(() => {
-                    // Clear form
-                    document.getElementById('signupForm').reset();
-
-                    // Show success message
-                    document.getElementById('successMessage').style.display = 'block';
-
-                    // Reset button
-                    submitBtn.disabled = false;
-                    btnText.textContent = 'Join the Waitlist';
-
-                    // Hide success after 5 seconds
-                    setTimeout(() => {
-                        document.getElementById('successMessage').style.display = 'none';
-                    }, 5000);
-                }, 1000);
-
-                // TODO: Replace with real backend call:
-                // const response = await fetch('YOUR_BACKEND_URL/api/v1/waitlist', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify({ fullName, email, jobTitle })
-                // });
-
-            } catch (error) {
-                alert('Error: ' + error.message);
-                submitBtn.disabled = false;
-                btnText.textContent = 'Join the Waitlist';
-            }
+            const name = encodeURIComponent(document.getElementById('earlyName').value.trim());
+            const email = encodeURIComponent(document.getElementById('earlyEmail').value.trim());
+            window.location.href = `/signup?name=${name}&email=${email}`;
         });
 
         // Smooth scroll for navigation
