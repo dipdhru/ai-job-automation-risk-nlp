@@ -23,7 +23,7 @@ class UserResponse(BaseModel):
     created_at: datetime
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 # ============================================================================
@@ -44,7 +44,7 @@ class JobAnalysisResponse(BaseModel):
     abilities: Optional[List[str]] = None
 
     class Config:
-        from_attributes = True
+        orm_mode = True
         json_schema_extra = {
             "example": {
                 "id": 1,
@@ -87,7 +87,7 @@ class SubscriptionResponse(BaseModel):
     stripe_customer_id: Optional[str]
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 # ============================================================================
@@ -102,7 +102,7 @@ class ApiKeyResponse(BaseModel):
     last_used: Optional[datetime]
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class ApiKeyCreateResponse(BaseModel):
@@ -113,7 +113,7 @@ class ApiKeyCreateResponse(BaseModel):
     created_at: datetime
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 # ============================================================================
