@@ -58,6 +58,14 @@ async def serve_index():
 async def serve_signup():
     return FileResponse(LANDING_DIR / "signup.html")
 
+@app.get("/dashboard", include_in_schema=False)
+async def serve_dashboard():
+    return FileResponse(LANDING_DIR / "dashboard.html")
+
+@app.get("/login", include_in_schema=False)
+async def serve_login():
+    return FileResponse(LANDING_DIR / "login.html")
+
 
 # Error handlers
 from fastapi import HTTPException
