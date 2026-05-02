@@ -15,13 +15,3 @@ async def health_check():
         "version": settings.APP_VERSION,
         "app_name": settings.APP_NAME,
     }
-
-
-@router.get("/")
-async def root():
-    """Root endpoint."""
-    return {
-        "message": f"Welcome to {settings.APP_NAME}",
-        "version": settings.APP_VERSION,
-        "docs": "/docs",
-    }
