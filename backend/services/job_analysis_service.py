@@ -6,14 +6,18 @@ import sys
 from sqlalchemy.orm import Session
 from models.database import JobAnalysis, Subscription
 
-# Add parent directory to path to import existing model
+# Add repo root and app/ dir to path so model and ai_resistance can be found
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(BASE_DIR, ".."))
+_repo_root = os.path.join(BASE_DIR, "..")
+_app_dir   = os.path.join(_repo_root, "app")
+for _p in (_repo_root, _app_dir):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 try:
     from app.model import analyze_single_job
     from app.options import ALL_SKILLS, ALL_KNOWLEDGE, ALL_ABILITIES
-except ImportError:
+except Exception:
     # Fallback if imports fail
     analyze_single_job = None
     ALL_SKILLS = []
