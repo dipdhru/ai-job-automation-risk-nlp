@@ -15,8 +15,8 @@ class UserResponse(BaseModel):
 
     id: int
     email: str
-    full_name: Optional[str]
-    is_verified: bool
+    full_name: Optional[str] = None
+    is_verified: bool = False
     created_at: datetime
 
 

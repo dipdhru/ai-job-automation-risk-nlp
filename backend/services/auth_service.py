@@ -69,7 +69,7 @@ class AuthService:
             minutes=30  # Set in settings
         )
         return create_access_token(
-            data={"sub": user.id, "email": user.email},
+            data={"sub": str(user.id), "email": user.email},
             expires_delta=access_token_expires,
         )
 
