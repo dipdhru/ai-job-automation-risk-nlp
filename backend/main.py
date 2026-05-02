@@ -49,6 +49,36 @@ app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(jobs.router)
 
+# Public analyze endpoint (no auth)
+from pydantic import BaseModel as _Base
+
+class _PublicAnalyzeRequest(_Base):
+    job_title: str
+    job_description: str
+
+@app.post("/api/v1/analyze")
+async def public_analyze(body: _PublicAnalyzeRequest):
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    try:
+        from app.model import analyze_single_job
+        result = analyze_single_job(
+            title=body.job_title,
+            description=body.job_description,
+        )
+        return {
+            "sector": result["Sector"],
+            "ai_proneness": result["AI_Proneness"],
+            "risk_level": (
+                "high" if result["AI_Proneness"] > 0.66 else
+                "moderate" if result["AI_Proneness"] > 0.33 else "low"
+            ),
+            "resistance_factors": result["Resistance_Factors"],
+        }
+    except Exception as e:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=500, detail=str(e))
+
 # Serve landing pages
 @app.get("/", include_in_schema=False)
 async def serve_index():
@@ -65,6 +95,10 @@ async def serve_dashboard():
 @app.get("/login", include_in_schema=False)
 async def serve_login():
     return FileResponse(LANDING_DIR / "login.html")
+
+@app.get("/analyzer", include_in_schema=False)
+async def serve_analyzer():
+    return FileResponse(LANDING_DIR / "analyzer.html")
 
 
 # Error handlers
