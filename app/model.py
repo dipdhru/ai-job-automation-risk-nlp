@@ -16,7 +16,10 @@ with open(os.path.join(ARTIFACTS_DIR, "cluster_scores.csv")) as f:
 
 cluster_names = json.load(open(os.path.join(ARTIFACTS_DIR, "cluster_names.json")))
 
-from ai_resistance import low_ai_resistance, medium_ai_resistance, high_ai_resistance
+try:
+    from ai_resistance import low_ai_resistance, medium_ai_resistance, high_ai_resistance
+except ImportError:
+    from app.ai_resistance import low_ai_resistance, medium_ai_resistance, high_ai_resistance
 AI_WEIGHTS = {"low": 0, "medium": 1, "high": 2}
 LOW_SET  = set(low_ai_resistance)
 MED_SET  = set(medium_ai_resistance)

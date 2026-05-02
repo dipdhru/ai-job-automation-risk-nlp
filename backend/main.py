@@ -55,16 +55,26 @@ from pydantic import BaseModel as _Base
 class _PublicAnalyzeRequest(_Base):
     job_title: str
     job_description: str
+    skills: list = []
+    knowledge: list = []
+    abilities: list = []
 
 @app.post("/api/v1/analyze")
 async def public_analyze(body: _PublicAnalyzeRequest):
     import sys
-    sys.path.insert(0, str(Path(__file__).parent.parent))
+    _repo = str(Path(__file__).parent.parent)
+    _app  = str(Path(__file__).parent.parent / "app")
+    for _p in (_repo, _app):
+        if _p not in sys.path:
+            sys.path.insert(0, _p)
     try:
         from app.model import analyze_single_job
         result = analyze_single_job(
             title=body.job_title,
             description=body.job_description,
+            skills=body.skills,
+            knowledge=body.knowledge,
+            abilities=body.abilities,
         )
         return {
             "sector": result["Sector"],
