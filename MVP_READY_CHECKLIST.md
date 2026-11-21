@@ -348,4 +348,3 @@ Good luck! 🚀
 
 **Questions?** Check the docs in this repo or email hello@aijobanalyzer.com
 
-**Want to use Claude AI to help refine anything?** I'm here!
